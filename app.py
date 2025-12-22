@@ -35,8 +35,8 @@ app.secret_key = "your_secret_key"
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Athulya1236",
-    database="flask_auth"
+    password="xxxx",
+    database="xxxx"
 )
 cursor = db.cursor(dictionary=True)
 

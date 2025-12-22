@@ -26,7 +26,7 @@ PRICES = {
 
 
 
-razorpay_client = razorpay.Client(auth=("rzp_test_RHZzbN9mv0IB2i", "i8KVpmeVT6FmOMLdyQCcKx79"))
+razorpay_client = razorpay.Client(auth=("xxxx", "xxxx"))
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"

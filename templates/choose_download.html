@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Download Option</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen p-8" style="background: linear-gradient(to right, #976ce7, #e42d27);">
+  <h2 class="text-3xl font-extrabold text-center mb-10 text-white drop-shadow-lg">
+    🎨 Choose Your Download Option
+  </h2>
+
+  <!-- ================== TOP 3 CARDS ================== -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    
+    <!-- Free Download -->
+    <div class="bg-white shadow-xl rounded-2xl p-6 text-center">
+      <h3 class="text-xl font-bold mb-4">🎁 Free Download</h3>
+      <ul class="text-sm mb-6 text-gray-600 space-y-2">
+        <li>✅ Cartoon image</li>
+        <li>❌ No HD quality</li>
+        <li>❌ Watermark present</li>
+      </ul>
+      <a href="{{ url_for('download_free', cartoon_image=cartoon_image) }}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-5 rounded-lg">
+          Download with Watermark
+        </button>
+      </a>
+    </div>
+
+    <!-- Play & Unlock -->
+    <div class="bg-white shadow-xl rounded-2xl p-6 text-center">
+      <h3 class="text-xl font-bold mb-4">🎮 Play & Unlock</h3>
+      <ul class="text-sm mb-6 text-gray-600 space-y-2">
+        <li>✅ Remove watermark</li>
+        <li>✅ Limited resolution</li>
+        <li>❌ Not permanent</li>
+      </ul>
+      <a href="{{ url_for('game_unlock', image_id=image_id) }}">
+        <button class="bg-green-500 hover:bg-green-700 text-white py-2 px-6 rounded-lg">
+          Play & Unlock
+        </button>
+      </a>
+    </div>
+
+    {% if active_subscription %}
+    <!-- If user has active subscription -->
+    <div class="bg-white shadow-xl rounded-2xl p-6 text-center border-2 border-green-400">
+      <h3 class="text-xl font-bold mb-4">💎 Premium Access</h3>
+      <ul class="text-sm mb-6 text-gray-600 space-y-2">
+        <li>✅ No watermark</li>
+        <li>✅ Full HD quality</li>
+        <li>✅ Unlimited downloads</li>
+      </ul>
+      <a href="{{ url_for('download_subscribed', cartoon_image=cartoon_image) }}">
+        <button class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg">
+          Download Now
+        </button>
+      </a>
+    </div>
+    {% else %}
+    <!-- If user has no subscription -->
+    <div class="relative bg-white shadow-xl rounded-2xl p-6 text-center border-2 border-purple-400">
+      <span class="absolute -top-3 right-4 bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+        ⭐ Most Popular
+      </span>
+      <h3 class="text-xl font-bold mb-4">💎 Subscription</h3>
+      <ul class="text-sm mb-6 text-gray-600 space-y-2">
+        <li>✅ No watermark</li>
+        <li>✅ Full HD quality</li>
+        <li>✅ Unlimited downloads</li>
+      </ul>
+      <a href="{{ url_for('subscription') }}">
+        <button class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg">
+          Subscribe Now By Razorpay
+        </button>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- ================== 4 PLAN SUBSCRIPTION BOX ================== -->
+  {% if not active_subscription %}
+  <div class="max-w-6xl mx-auto mt-10 border-purple-400">
+    <div class="bg-white shadow-2xl rounded-2xl p-6 flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-4 border-purple-400">
+
+      <!-- Basic Plan -->
+      <div class="flex-1 bg-white rounded-xl shadow-md p-4 text-center border md:border-r border-gray-200">
+        <h3 class="text-xl font-bold mb-2">Basic</h3>
+        <p class="text-sm mb-4 text-gray-600">1 Day Access</p>
+        <ul class="text-sm mb-4 text-gray-700 space-y-1">
+          <li>🖼️ One-Time Download</li>
+          <li>Perfect for single use.</li>
+          <li><p class="text-2xl font-bold mb-6">₹49</p></li>
+          
+        </ul>
+        <a href="{{ url_for('subscribe_temp', plan='Basic') }}">
+          <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg w-full">
+            Subscribe
+          </button>
+        </a>
+      </div>
+
+      <!-- Standard Plan -->
+      <div class="flex-1 bg-white rounded-xl shadow-md p-4 text-center border md:border-r border-gray-200">
+        <h3 class="text-xl font-bold mb-2">Standard</h3>
+        <p class="text-sm mb-4 text-gray-600">30 Days Access</p>
+        <ul class="text-sm mb-4 text-gray-700 space-y-1">
+          <li>📅 Monthly Plan</li>
+          <li>Unlimited downloads every month.</li>
+          <li><p class="text-2xl font-bold mb-6">₹199</p></li>
+          
+        </ul>
+        <a href="{{ url_for('subscribe_temp', plan='Standard') }}">
+          <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg w-full">
+            Subscribe
+          </button>
+        </a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="flex-1 bg-white rounded-xl shadow-md p-4 text-center border md:border-r border-gray-200">
+        <h3 class="text-xl font-bold mb-2">Pro</h3>
+        <p class="text-sm mb-4 text-gray-600">1 Year Access</p>
+        <ul class="text-sm mb-4 text-gray-700 space-y-1">
+          <li>📆 Yearly Plan</li>
+          <li>Unlimited downloads for a year.</li>
+          <li><p class="text-2xl font-bold mb-6">₹999</p></li>
+          
+        </ul>
+        <a href="{{ url_for('subscribe_temp', plan='Pro') }}">
+          <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg w-full">
+            Subscribe
+          </button>
+        </a>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="flex-1 bg-white rounded-xl shadow-md p-4 text-center">
+        <h3 class="text-xl font-bold mb-2">Premium</h3>
+        <p class="text-sm mb-4 text-gray-600">Lifetime Access</p>
+        <ul class="text-sm mb-4 text-gray-700 space-y-1">
+          <li>♾️ Lifetime Access</li>
+          <li>Pay once, enjoy forever.</li>
+          <li><p class="text-2xl font-bold mb-6">₹1999</p></li>
+          
+        </ul>
+        <a href="{{ url_for('subscribe_temp', plan='Premium') }}">
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg w-full">
+            Subscribe
+          </button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  {% endif %}
+
+</body>
+</html>

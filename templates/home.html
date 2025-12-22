@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Cartoonify</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to right, #976ce7, #e42d27);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      position: relative; /* needed for absolute image */
+    }
+
+    /* Girl image leaning left */
+    .girl-img {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 80%; /* adjust as needed */
+      object-fit: contain;
+      z-index: 1; /* behind text */
+      pointer-events: none; /* clicks pass through */
+    }
+
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+      padding: 10px 0;
+      background: rgba(0,0,0,0.2);
+      z-index: 2; /* above image */
+      position: relative;
+    }
+
+    .marquee span {
+      display: inline-block;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite, glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; }
+      to { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+      z-index: 2; /* above image */
+      position: relative;
+      margin-left: 200px; /* leave space for girl image */
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      color: #f0f0f0;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Girl image -->
+  <img src="{{ url_for('static', filename='image 1.png') }}" alt="Girl" class="girl-img">
+
+  <!-- Marquee Title -->
+  <div class="marquee">
+    <span>AI-Based Image Transformation Tool for Cartoon Effect Generation</span>
+  </div>
+
+  <!-- Main content -->
+  <div class="container">
+    <h1>Curious to see yourself in Cartoon? 🎨</h1>
+    <p>Upload your photo & let our AI turn it into a fun cartoon version of you ✨</p>
+    <button class="btn floating" onclick="window.location.href='{{ url_for('login_page') }}'">Let's Start 🚀</button>
+    <button class="btn floating" style="margin-top:20px; background: linear-gradient(135deg, #00c6ff, #0072ff);" onclick="window.location.href='{{ url_for('admin_login') }}'">Login as Admin 🔑</button>
+
+
+
+  </div>
+
+  
+  
+</body>
+</html>

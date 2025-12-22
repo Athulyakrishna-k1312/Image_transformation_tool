@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #976ce7, #e42d27);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    .horizontal-card {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .left-column, .right-column {
+      flex: 1 1 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section {
+      background: #f7f7f7;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    .section h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+      border-left: 4px solid #976ce7;
+      padding-left: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #2575fc;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #976ce7;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #6a11cb;
+    }
+
+    .danger {
+      background: #e74c3c;
+    }
+
+    .danger:hover {
+      background: #c0392b;
+    }
+
+    .logout {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .logout:hover {
+      text-decoration: underline;
+    }
+
+    /* Testimony cards horizontal scroll */
+    .testimonies-container {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .testimony-card {
+      min-width: 250px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .testimony-card textarea {
+      resize: none;
+    }
+
+    /* Scrollbar styling */
+    .testimonies-container::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .testimonies-container::-webkit-scrollbar-thumb {
+      background: #976ce7;
+      border-radius: 4px;
+    }
+
+    .testimonies-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Profile Settings</h2>
+
+    <div class="horizontal-card">
+      <!-- Left Column -->
+      <div class="left-column">
+        <!-- Subscription -->
+        <div class="section subscription-card">
+          <h3>My Subscription</h3>
+          {% if subscription %}
+          <p><strong>Plan:</strong> {{ subscription.package_name }}</p>
+          <p><strong>Start Date:</strong> {{ subscription.start_date }}</p>
+          <p><strong>End Date:</strong> {{ subscription.end_date }}</p>
+          <p><strong>Status:</strong> 
+            {% if subscription.status == 'Active' %}
+              <span style="color: green;">Active ✅</span>
+            {% else %}
+              <span style="color: red;">Expired ❌</span>
+            {% endif %}
+          </p>
+          {% else %}
+          <p>You don’t have an active subscription.</p>
+          <a href="{{ url_for('subscribe') }}">
+            <button class="subscribe-btn">Subscribe Now</button>
+          </a>
+          {% endif %}
+        </div>
+
+        <!-- My Images -->
+        <div class="section">
+          <h3>My Images</h3>
+          <a href="{{ url_for('my_images') }}">
+            <button>View Your Created Images</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="right-column">
+        <!-- Change Name -->
+        <div class="section">
+          <h3>Change Name</h3>
+          <form action="{{ url_for('update_name') }}" method="POST">
+            <input type="text" name="name" placeholder="Enter new name" required>
+            <button type="submit">Update Name</button>
+          </form>
+        </div>
+
+        <!-- Change Email -->
+        <div class="section">
+          <h3>Change Email</h3>
+          <form action="{{ url_for('update_email') }}" method="POST">
+            <input type="email" name="email" placeholder="Enter new email" required>
+            <button type="submit">Update Email</button>
+          </form>
+        </div>
+
+        <!-- Change Password -->
+        <div class="section">
+          <h3>Change Password</h3>
+          <form action="{{ url_for('update_password') }}" method="POST">
+            <input type="password" name="old_password" placeholder="Old Password" required>
+            <input type="password" name="new_password" placeholder="New Password" required>
+            <button type="submit">Update Password</button>
+          </form>
+        </div>
+
+        <!-- My Testimonies -->
+        <div class="section">
+          <h3>My Testimonies</h3>
+          <div class="testimonies-container">
+            {% for t in testimonies %}
+            <div class="testimony-card">
+              <p>{{ t.testimony }}</p>
+              <form action="{{ url_for('update_testimony', testimony_id=t.id) }}" method="POST">
+                <textarea name="new_testimony" rows="2" required>{{ t.testimony }}</textarea>
+                <button type="submit">Update</button>
+              </form>
+            </div>
+            {% endfor %}
+          </div>
+          <form action="{{ url_for('add_testimony') }}" method="POST" style="margin-top:15px;">
+            <textarea name="new_testimony" rows="3" placeholder="Write a new testimony..." required></textarea>
+            <button type="submit">Add Testimony</button>
+          </form>
+        </div>
+
+        <!-- Delete Account -->
+        <div class="section">
+          <h3>Delete Account</h3>
+          <form action="{{ url_for('delete_account') }}" method="POST">
+            <button class="danger">Delete My Account</button>
+          </form>
+        </div>
+
+        <!-- Logout -->
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

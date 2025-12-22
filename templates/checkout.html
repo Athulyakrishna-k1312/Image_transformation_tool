@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - {{ package }} Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center p-4">
+
+<div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
+    <h1 class="text-3xl font-bold mb-4">💳 Checkout</h1>
+    <h2 class="text-xl font-semibold mb-2">{{ package }} Plan</h2>
+    <p class="text-gray-600 mb-6">Amount: <span class="text-2xl font-bold">₹{{ amount/100 }}</span></p>
+
+    <!-- inside checkout.html -->
+    <form id="payment-form" method="POST" action="/payment_success">
+      <input type="hidden" name="package" value="{{ package }}">
+      <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+      <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+      <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+  
+      <button id="rzp-button" type="button" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-5 rounded-lg w-full text-lg font-bold">
+        Pay ₹{{ amount/100 }}
+      </button>
+  </form>
+  
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+  var options = {
+      "key": "rzp_test_RHZzbN9mv0IB2i",
+      "amount": "{{ amount }}",
+      "currency": "INR",
+      "name": "Cartoon Effect Tool",
+      "description": "Subscription Payment",
+      "order_id": "{{ order['id'] }}",
+      "prefill": {
+          "name": "{{ session.get('user_name') }}",
+          "email": "{{ session.get('user_email') }}"
+      },
+      "theme": { "color": "#7F3DFF" },
+      "handler": function (response){
+          console.log(response); // debug
+          document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+          document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+          document.getElementById('razorpay_signature').value = response.razorpay_signature;
+          document.getElementById('payment-form').submit();
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+  </script>
+  
+
+    
+
+</body>
+</html>

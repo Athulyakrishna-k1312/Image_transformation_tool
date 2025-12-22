@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartoon Effect Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      background: linear-gradient(to right, #976ce7, #e42d27);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: #000000;
+      background: linear-gradient(to right, #e42d27,#976ce7);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h2 {
+      margin: 0;
+    }
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      color: #c0450c;
+    }
+
+    /* Main Content */
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .upload-box {
+      background: rgb(255, 255, 255);
+      padding: 30px;
+      border-radius: 100px;
+      border-style: dotted rgb(211, 203, 203);
+      border: dashed black;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      width: 50em;
+      margin-left: 30em;
+      margin-top: 5em;
+      align-content: center;
+      
+      
+
+    }
+    input[type="file"] {
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4108c5;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #976ce7;
+    }
+
+    /* Preview */
+    #preview {
+      margin-top: 20px;
+      max-width: 300px;
+      border-radius: 10px;
+    }
+
+
+    
+    .style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.style-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.style-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.style-card span {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #080404;
+}
+
+.style-card:hover img {
+  transform: scale(1.1);
+  border-color:  #976ce7;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+  <!-- Header -->
+  <header>
+    <h2>Cartoon Effect Tool</h2>
+    <div class="profile-icon" onclick="goToProfile()">👤</div>
+  </header>
+  <div class="upload-box">
+    <h3>Upload your image</h3>
+    
+    <form action="{{ url_for('cartoonize') }}" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required><br><br>
+    
+      <h3>Choose Style</h3>
+<div class="style-options">
+  <form action="{{ url_for('cartoonize') }}" method="POST" enctype="multipart/form-data" id="styleForm">
+    <input type="hidden" name="image" id="hiddenImage">
+
+    <div class="style-grid">
+      <button type="submit" name="style" value="sketch" class="style-card">
+        <img src="{{ url_for('static', filename='sketch_Pasted image.png') }}" alt="Sketch">
+        <span>Sketch</span>
+      </button>
+      
+
+      <button type="submit" name="style" value="opencv" class="style-card">
+        <img src="{{ url_for('static', filename='cartoon_Pasted image (2).png') }}" alt="Cartoon OpenCV">
+        <span>Cartoon</span>
+      </button>
+
+      <button type="submit" name="style" value="anime_paprika" class="style-card">
+        <img src="{{ url_for('static', filename='paprika.png') }}" alt="Anime Paprika">
+        <span>Paprika</span>
+      </button>
+
+      <button type="submit" name="style" value="anime_facepaint_v1" class="style-card">
+        <img src="{{ url_for('static', filename='face.png') }}" alt="Anime Face Paint">
+        <span>Face Paint</span>
+      </button>
+
+      <button type="submit" name="style" value="anime_celeba" class="style-card">
+        <img src="{{ url_for('static', filename='celeba.png') }}" alt="Anime Celeba">
+        <span>Celeba</span>
+      </button>
+
+      <button type="submit" name="style" value="ghibli" class="style-card">
+        <img src="{{ url_for('static', filename='ghibli.png') }}" alt="ghibli">
+        <span>Semi-Realistic</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+    </form>
+    
+  </div>
+  
+
+  
+
+  <script>
+    // Preview uploaded image
+    document.getElementById("imageInput").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById("preview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Dummy apply cartoon effect function
+    function applyCartoon() {
+      alert("Cartoon effect will be applied (Backend needed here)");
+    }
+
+    // Redirect to profile page
+    function goToProfile() {
+      window.location.href = "/profile"; // Flask will handle this route
+    }
+  </script>
+
+</body>
+</html>
+
+
+ 

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoonized Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #976ce7, #e42d27);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .images img {
+    width: 500px;          /* fixed width */
+    height: 600px;         /* fixed height */
+    object-fit: cover;     /* crop/fit the image without distortion */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+        .actions {
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 8px;
+            background-color: #ff6f61;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #e05245;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Cartoonized Image</h1>
+        <div class="images">
+            <div>
+                <h3>Original</h3>
+                <img src="{{ url_for('static', filename=original_image.split('static/')[-1]) }}" alt="Original">
+            </div>
+            <div>
+                <h3>Cartoon</h3>
+                <img src="{{ url_for('static', filename=cartoon_image.split('static/')[-1]) }}" alt="Cartoon">
+            </div>
+        </div>
+
+        <div class="actions">
+            <!-- FIXED: added image_id -->
+            <a class="btn" 
+               href="{{ url_for('choose_download', cartoon_image=cartoon_image, original_image=original_image, image_id=image_id) }}">
+               ⬇️ Download Options
+            </a>
+        </div>
+    </div>
+</body>
+</html>

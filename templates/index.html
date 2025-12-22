@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Modern Login Page | AsmrProg</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .back-arrow {
+      position: absolute;
+      top: 55px;
+      left: 20px;
+      text-decoration: none;
+    }
+
+
+
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+    <!--<a href="{{ url_for('profile') }}" class="back-arrow"><i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 24px;"></i></a>-->
+
+    <div class="container" id="container">
+        <img src="{{ url_for('static', filename='Group 1.png') }}" alt="Girl" class="girl-img">
+        <div class="form-container sign-up">
+            
+            <form action="/signup" method="POST">
+                <h1>Create Account</h1>
+                
+                
+                <input type="text" placeholder="Name" name="name" required>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form action="/login" method="POST">
+                <h1>Sign In</h1>
+                
+                
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                
+                <button>Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Already have an account? sign in here</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>New here?<br>
+                    Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('testimonials') }}">
+            <button style="
+                padding: 12px 30px;
+                font-size: 16px;
+                cursor: pointer;
+                border: none;
+                border-radius: 50px;
+                background: linear-gradient(135deg, #ff416c, #ff4b2b);
+                color: white;
+                font-weight: bold;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+            "
+            onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.4)';"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.3)';">
+                View Testimonials
+            </button>
+        </a>
+    </div>
+    
+    
+
+
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

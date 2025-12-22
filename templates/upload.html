@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+</head>
+<body>
+    <h2>Upload an Image to Cartoonize</h2>
+    <form method="POST" action="{{ url_for('cartoonize') }}" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Cartoonize</button>
+    </form>
+</body>
+</html>

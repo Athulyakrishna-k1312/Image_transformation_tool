@@ -53,7 +53,6 @@ The Admin Panel provides full control over the platform, including:
 
 ---
 
-## 🖼️ Screenshot
-![Admin Dashboard](screenshots/admin_dashboard.png)
-## 📂 Project Structure
+
+
 

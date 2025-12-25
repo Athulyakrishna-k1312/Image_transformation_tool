@@ -52,7 +52,7 @@ The Admin Panel provides full control over the platform, including:
 - Dashboard analytics and system controls 📊  
 
 ---
-![Admin Dashboard]([screenshots/admin_dashboard.png](https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/8976c22437aa7e7d6861aba30592c61e74ff5f19/Screenshots/Screenshot%20from%202025-08-26%2000-38-41.png))
+![Admin Dashboard][(https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/8976c22437aa7e7d6861aba30592c61e74ff5f19/Screenshots/Screenshot%20from%202025-08-26%2000-38-41.png)]
 
 
 

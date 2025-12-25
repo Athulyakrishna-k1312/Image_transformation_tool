@@ -52,7 +52,8 @@ The Admin Panel provides full control over the platform, including:
 - Dashboard analytics and system controls 📊  
 
 ---
-## 🖼️ Screenshots
 
+## 🖼️ Screenshot
+![Admin Dashboard](screenshots/admin_dashboard.png)
 ## 📂 Project Structure
 

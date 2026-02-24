@@ -55,6 +55,12 @@ The Admin Panel provides full control over the platform, including:
 
 ---
 
+## 📸 Sample Output
+
+![image alt](https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/a49526a5f5fb0c009f22139812c6e5a5916004e2/Screenshots/Pasted%20image%20(2).png)  ![output](https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/695b0e3020a575398bdd32bf6f09d09096d5d92e/Screenshots/sketch_Pasted%20image%20(2).png)
+
+---
+
 ## 🔮 Future Improvements
 
 
@@ -65,10 +71,4 @@ The Admin Panel provides full control over the platform, including:
 - Custom fine-tuned AnimeGAN training on custom dataset
 
 ---
-
-## 📸 Sample Output
-
-![image alt](https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/a49526a5f5fb0c009f22139812c6e5a5916004e2/Screenshots/Pasted%20image%20(2).png)  ![output](https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/695b0e3020a575398bdd32bf6f09d09096d5d92e/Screenshots/sketch_Pasted%20image%20(2).png)
-
-
 

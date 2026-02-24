@@ -1,6 +1,6 @@
 # 🎨 AI-based Image Transformation Platform
   
-It is a web-based image transformation platform that allows users to convert images into **Cartoon**, **Pencil Sketch**, and **Anime-style AI effects**, with additional features like games, watermark control, subscriptions, and an admin dashboard.
+This project is a deep learning–based web application that converts real-world images into **Cartoon**, **Pencil Sketch**, and **Anime-style AI effects** using a pretrained AnimeGAN model, with additional features like games, watermark control, subscriptions, and an admin dashboard.
 
 ---
 
@@ -19,7 +19,9 @@ An **Admin Dashboard** is included to manage users, subscriptions, payments, and
 - **Flask** – Web framework for the application  
 - **MySQL** – Database for storing user data, image details, and subscriptions  
 - **Razorpay API (Test Mode)** – Online payment integration  
-- **Python & OpenCV** – Image processing using bilateral filtering and edge detection  
+- **Python & OpenCV** – Image processing using bilateral filtering and edge detection
+- **PyTorch**
+- **HTML/CSS (Frontend)**
 
 ---
 
@@ -52,8 +54,17 @@ The Admin Panel provides full control over the platform, including:
 - Dashboard analytics and system controls 📊  
 
 ---
-![Admin Dashboard][(https://github.com/Athulyakrishna-k1312/Image_transformation_tool/blob/8976c22437aa7e7d6861aba30592c61e74ff5f19/Screenshots/Screenshot%20from%202025-08-26%2000-38-41.png)]
 
+## 🔮 Future Improvements
+
+
+- Real-time webcam anime filter
+
+- Mobile application integration
+
+- Custom fine-tuned AnimeGAN training on custom dataset
+
+---
 
 
 
